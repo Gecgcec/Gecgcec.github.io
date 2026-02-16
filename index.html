@@ -1,142 +1,73 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的商品展示</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .header h1 {
-            font-size: 2.5rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        .header p {
-            font-size: 1.1rem;
-            color: #6c757d;
-        }
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            overflow: hidden;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-        .product-image {
-            height: 220px;
-            background-color: #e9ecef;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6c757d;
-            font-size: 1.2rem;
-        }
-        .product-info {
-            padding: 20px;
-        }
-        .product-name {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 8px;
-        }
-        .product-price {
-            font-size: 1.2rem;
-            color: #e74c3c;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .product-desc {
-            color: #495057;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        .buy-button {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background-color: #3498db;
-            color: white;
-            text-align: center;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.2s ease;
-        }
-        .buy-button:hover {
-            background-color: #2980b9;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商品展示</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f8f9fa;color:#333;padding:20px}
+.container{max-width:1000px;margin:0 auto}
+.header{text-align:center;margin-bottom:20px}
+.category{display:flex;justify-content:center;gap:10px;margin-bottom:25px;flex-wrap:wrap}
+.category button{padding:8px 14px;border:none;border-radius:20px;background:#fff;cursor:pointer}
+.category button.active{background:#3498db;color:#fff}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px #0000000a}
+.card img{width:100%;height:180px;object-fit:cover;background:#eee}
+.info{padding:15px}
+.name{font-size:16px;font-weight:700;margin-bottom:6px}
+.price{color:#e74c3c;font-weight:700;margin-bottom:10px}
+.desc{font-size:14px;color:#666;margin-bottom:15px}
+.buy{display:block;background:#3498db;color:#fff;text-align:center;padding:10px;border-radius:6px;text-decoration:none}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>我的商品展示</h1>
-            <p>合法合规的商品展示页面</p >
-        </div>
+<div class="container">
+  <div class="header">
+    <h2>商品展示</h2>
+  </div>
 
-        <div class="products">
-            <!-- 商品卡片 1 -->
-            <div class="product-card">
-                <div class="product-image">商品图片</div>
-                <div class="product-info">
-                    <div class="product-name">精美手工艺品</div>
-                    <div class="product-price">¥199</div>
-                    <div class="product-desc">这是一件精美的手工艺品，适合收藏和送礼。</div>
-                    <a href=" " class="buy-button" target="_blank">联系购买 href="tel:15072557168</a >
-                </div>
-            </div>
+  <div class="category">
+    <button class="active" onclick="show('all')">全部</button>
+    <button onclick="show('craft')">手工艺品</button>
+    <button onclick="show('book')">书籍</button>
+  </div>
 
-            <!-- 商品卡片 2 -->
-            <div class="product-card">
-                <div class="product-image">商品图片</div>
-                <div class="product-info">
-                    <div class="product-name">优质书籍</div>
-                    <div class="product-price">¥59</div>
-                    <div class="product-desc">一本值得阅读的好书，带你领略不同的世界。</div>
-                    <a href="tel:15072557168" class="buy-button" target="_blank">联系购买 href="tel:15072557168</a >
-                </div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>&copy; 2026 我的商品展示. 保留所有权利.</p >
-        </div>
+  <div class="products">
+    <div class="card" data-type="craft">
+      < img src="">
+      <div class="info">
+        <div class="name">手工艺品</div>
+        <div class="price">¥199</div>
+        <div class="desc">手工制作，美观实用</div>
+        <a class="buy" href=" ">电话购买</a >
+      </div>
     </div>
+
+    <div class="card" data-type="book">
+      < img src="">
+      <div class="info">
+        <div class="name">优质书籍</div>
+        <div class="price">¥59</div>
+        <div class="desc">知识阅读，提升自己</div>
+        <a class="buy" href="tel:15072557168">电话购买</a >
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(t){
+  const btns=document.querySelectorAll('.category button');
+  btns.forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  const cards=document.querySelectorAll('.card');
+  cards.forEach(c=>{
+    if(t=='all'||c.dataset.type==t) c.style.display='block';
+    else c.style.display='none';
+  })
+}
+</script>
 </body>
 </html>
