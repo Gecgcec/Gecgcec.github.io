@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人主页</title>
+    <title>我的商品展示</title>
     <style>
         * {
             margin: 0;
@@ -17,12 +17,12 @@
             line-height: 1.6;
         }
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 50px auto;
             padding: 0 20px;
-            text-align: center;
         }
         .header {
+            text-align: center;
             margin-bottom: 40px;
         }
         .header h1 {
@@ -34,21 +34,57 @@
             font-size: 1.1rem;
             color: #6c757d;
         }
-        .content {
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
             background: white;
-            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
-        .content h2 {
+        .product-image {
+            height: 200px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 1.2rem;
+        }
+        .product-info {
+            padding: 20px;
+        }
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: bold;
             color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .product-price {
+            font-size: 1.1rem;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        .product-desc {
+            color: #495057;
             margin-bottom: 20px;
         }
-        .content p {
-            margin-bottom: 15px;
-            color: #495057;
+        .buy-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
         }
         .footer {
+            text-align: center;
             margin-top: 40px;
             color: #6c757d;
             font-size: 0.9rem;
@@ -58,16 +94,31 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>欢迎来到我的个人主页</h1>
-            <p>这是一个安全合规的静态网站示例</p >
+            <h1>我的商品展示</h1>
+            <p>合法合规的商品展示页面</p >
         </div>
-        <div class="content">
-            <h2>关于本站</h2>
-            <p>本站用于展示个人信息和项目作品，所有内容均符合国家法律法规和公序良俗。</p >
-            <p>如果你有任何问题或合作意向，欢迎通过合法渠道与我联系。</p >
+        <div class="products">
+            <div class="product-card">
+                <div class="product-image">商品图片</div>
+                <div class="product-info">
+                    <div class="product-name">精美手工艺品</div>
+                    <div class="product-price">¥199</div>
+                    <div class="product-desc">这是一件精美的手工艺品，适合收藏和送礼。</div>
+                    <a href=" " class="buy-button">联系购买</a >
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">商品图片</div>
+                <div class="product-info">
+                    <div class="product-name">优质书籍</div>
+                    <div class="product-price">¥59</div>
+                    <div class="product-desc">一本值得阅读的好书，带你领略不同的世界。</div>
+                    <a href="#" class="buy-button">联系购买</a >
+                </div>
+            </div>
         </div>
         <div class="footer">
-            <p>&copy; 2026 我的个人主页. 保留所有权利.</p >
+            <p>&copy; 2026 我的商品展示. 保留所有权利.</p >
         </div>
     </div>
 </body>
