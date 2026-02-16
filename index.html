@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEA商城</title>
+<style>
+body{margin:0;padding:20px;background:#f6f6f6;font-family:Arial}
+.header{text-align:center;padding:15px 0;background:#ff4c4c;color:white;border-radius:10px}
+.goods{background:white;margin:10px 0;padding:15px;border-radius:10px}
+.name{font-size:18px;font-weight:bold}
+.price{color:red;font-size:16px;margin:5px 0}
+.buy{background:#ff4c4c;color:white;border:none;width:100%;padding:12px;border-radius:8px;font-size:16px}
+.addr{margin-top:10px;padding:10px;background:#f5f5f5;border-radius:8px;word-break:break-all;font-size:14px}
+.tip{color:green;text-align:center;margin-top:10px}
+</style>
+</head>
+
+<body>
+<div class="header">🧧 GEA支付商城</div>
+
+<div class="goods">
+<div class="name">商品1</div>
+<div class="price">价格：100 GEA</div>
+<button class="buy" onclick="pay()">立即购买</button>
+</div>
+
+<div class="goods">
+<div class="name">商品2</div>
+<div class="price">价格：200 GEA</div>
+<button class="buy" onclick="pay()">立即购买</button>
+</div>
+
+<div class="addr" id="addr"></div>
+<div class="tip" id="tip"></div>
+
+<script>
+function pay(){
+  var geaAddr = "gea1vle5h50hnvrynvxkypenw9a8594tljcxq448d";
+  document.getElementById("addr").innerText = "GEA收款地址：" + geaAddr;
+  navigator.clipboard.writeText(geaAddr);
+  document.getElementById("tip").innerText = "✅ 地址已复制，请转账完成支付";
+}
+</script>
+</body>
+</html>
