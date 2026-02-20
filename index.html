@@ -288,9 +288,9 @@
     <!-- 底部导航 -->
     <div class="bottom-nav">
         <div class="nav-item active">首页</div>
-        <div class="nav-item">多多视频</div>
-        <div class="nav-item">聊天</div>
-        <div class="nav-item">个人中心</div>
+        <div class="nav-item">视频</div>
+        <div class="nav-item">消息</div>
+        <div class="nav-item">我的</div>
     </div>
 
     <!-- 购买弹窗（保持不变） -->
@@ -299,9 +299,8 @@
             <h3>✧ GEA 购买/换货 ✧</h3>
             <div id="modalProductInfo" style="background:#eef2ff; padding:8px; border-radius:20px; text-align:center; margin-bottom:20px;">商品名 · 价格</div>
 
-            <form id="orderForm" action="https://formsubmit.co/1216060397@qq.com" method="POST">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_subject" value="新订单通知 - 志愿者小店">
+           <form action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="d71ba32f-065d-41c5-b082-e0962144db97 ">                 <input type="hidden" name="_subject" value="新订单通知 - 志愿者小店">
                 <input type="hidden" name="_template" value="box">
 
                 <input type="hidden" name="product_name" id="selectedProduct" value="">
@@ -476,5 +475,67 @@
             // 验证通过，表单正常提交
         });
     </script>
-</body>
-</html>
+
+<!-- 联系客服按钮（新加的） -->
+<div style="text-align: center; margin: 15px 0; padding: 10px;">
+    <button onclick="openContactModal()" style="background: #e02e24; color: white; padding: 12px 30px; border: none; border-radius: 30px; font-size: 16px; font-weight: 600; box-shadow: 0 2px 8px rgba(224,46,36,0.3); cursor: pointer;">
+        📧 联系客服
+    </button>
+    <p style="font-size: 12px; color: #999; margin-top: 8px;">点击后填写信息，客服会收到你的消息。</p>
+</div>
+
+<!-- 底部导航（保留您原有的，这里只作示例） -->
+<div class="bottom-nav">
+    <div class="nav-item active" onclick="window.scrollTo(0,0)">首页</div>
+    <div class="nav-item" onclick="alert('视频功能正在筹备中，敬请期待！')">视频</div>
+    <div class="nav-item" onclick="alert('客服微信：your_wechat_id，添加请备注商品')">消息</div>
+    <div class="nav-item" onclick="alert('个人中心功能暂未开放，可联系客服处理订单')">我的</div>
+</div>
+
+<!-- 原有的购买弹窗（保持不变，这里省略） -->
+<!-- <div id="purchaseModal" class="modal-overlay">...</div> -->
+
+<!-- 新增的客服弹窗（正确结构） -->
+<div id="contactModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3>📝 联系客服</h3>
+    <form action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="d71ba32f-065d-41c5-b082-e0962144db97">
+    <!-- 其他字段不变 -->
+    <div class="form-group">
+        <label>👤 您的昵称</label>
+        <input type="text" name="昵称" required>
+    </div>
+    <div class="form-group">
+        <label>💬 您的微信号</label>
+        <input type="text" name="微信号" required>
+    </div>
+    <div class="form-group">
+        <label>📝 咨询内容</label>
+        <textarea name="咨询内容" rows="3" required></textarea>
+    </div>
+    <button type="submit">发送咨询</button>
+</form>      </div>
+</div>
+
+<script>
+    // 客服弹窗控制
+    const contactModal = document.getElementById('contactModal');
+
+    function openContactModal() {
+        contactModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeContactModal() {
+        contactModal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    // 合并点击遮罩层关闭（兼容原有的关闭逻辑）
+    const originalWindowOnclick = window.onclick;
+    window.onclick = function(event) {
+        if (originalWindowOnclick) originalWindowOnclick(event);
+        if (event.target === contactModal) closeContactModal();
+    };
+</script> 
