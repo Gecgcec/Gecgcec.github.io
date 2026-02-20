@@ -56,7 +56,7 @@
         }
         .product-image {
             width: 100%;
-            aspect-ratio: 1 / 1;
+            height: 160px;
             background: #f9f9f9;
             display: flex;
             align-items: center;
@@ -67,7 +67,8 @@
         .product-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            background-color: #f0f0f0;
             display: block;
         }
         .product-info {
@@ -100,6 +101,12 @@
             font-weight: 400;
             color: #999;
             margin-left: 2px;
+        }
+        /* 新增库存样式 */
+        .stock-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
         }
         .buy-btn {
             background: #e02e24;
@@ -173,6 +180,11 @@
             border-radius: 20px;
             font-size: 14px;
         }
+        /* 数量输入框宽度小一点 */
+        .quantity-input {
+            width: 80px;
+            text-align: center;
+        }
         .submit-btn, .close-btn {
             width: 100%;
             padding: 14px;
@@ -204,9 +216,9 @@
         <span class="category-item">环保马甲</span>
     </div>
 
-    <!-- 商品网格 -->
+    <!-- 商品网格（已添加库存属性 data-stock 和显示） -->
     <div class="product-grid">
-        <div class="product-card" data-product="环保帽" data-price="2 Gea">
+        <div class="product-card" data-product="环保帽" data-price="2 Gea" data-stock="10">
             <div class="product-image">
                 <img src="product1.png" alt="环保帽" onerror="this.style.display='none';this.parentNode.innerHTML='📸 图片1'">
             </div>
@@ -215,10 +227,11 @@
                 <div class="price-row">
                     <span class="price">2 Gea <small>起</small></span>
                 </div>
+                <div class="stock-info">库存：<span class="stock-number">10</span> 件</div>
                 <button class="buy-btn">购买</button>
             </div>
         </div>
-        <div class="product-card" data-product="无纺布袋" data-price="2 Gea">
+        <div class="product-card" data-product="无纺布袋" data-price="2 Gea" data-stock="15">
             <div class="product-image">
                 <img src="product2.png" alt="环保袋" onerror="this.style.display='none';this.parentNode.innerHTML='📸 图片2'">
             </div>
@@ -227,10 +240,11 @@
                 <div class="price-row">
                     <span class="price">2 Gea <small>起</small></span>
                 </div>
+                <div class="stock-info">库存：<span class="stock-number">15</span> 件</div>
                 <button class="buy-btn">购买</button>
             </div>
         </div>
-        <div class="product-card" data-product="环保夹" data-price="1.3 Gea">
+        <div class="product-card" data-product="环保夹" data-price="1.3 Gea" data-stock="8">
             <div class="product-image">
                 <img src="product3.png" alt="环保夹" onerror="this.style.display='none';this.parentNode.innerHTML='📸 图片3'">
             </div>
@@ -239,10 +253,11 @@
                 <div class="price-row">
                     <span class="price">1.3 Gea</span>
                 </div>
+                <div class="stock-info">库存：<span class="stock-number">8</span> 件</div>
                 <button class="buy-btn">购买</button>
             </div>
         </div>
-        <div class="product-card" data-product="环保海报" data-price="1 Gea">
+        <div class="product-card" data-product="环保海报" data-price="1 Gea" data-stock="20">
             <div class="product-image">
                 <img src="product4.png" alt="环保海报" onerror="this.style.display='none';this.parentNode.innerHTML='📸 图片4'">
             </div>
@@ -251,10 +266,11 @@
                 <div class="price-row">
                     <span class="price">1 Gea</span>
                 </div>
+                <div class="stock-info">库存：<span class="stock-number">20</span> 件</div>
                 <button class="buy-btn">购买</button>
             </div>
         </div>
-        <div class="product-card" data-product="环保马甲" data-price="2 Gea">
+        <div class="product-card" data-product="环保马甲" data-price="2 Gea" data-stock="12">
             <div class="product-image">
                 <img src="product5.png" alt="环保马甲" onerror="this.style.display='none';this.parentNode.innerHTML='📸 图片5'">
             </div>
@@ -263,6 +279,7 @@
                 <div class="price-row">
                     <span class="price">2 Gea</span>
                 </div>
+                <div class="stock-info">库存：<span class="stock-number">12</span> 件</div>
                 <button class="buy-btn">购买</button>
             </div>
         </div>
@@ -276,56 +293,65 @@
         <div class="nav-item">个人中心</div>
     </div>
 
-    <!-- 购买弹窗（完美修复版） -->
+    <!-- 购买弹窗（已添加数量选择） -->
     <div id="purchaseModal" class="modal-overlay">
         <div class="modal-content">
             <h3>✧ GEA 购买/换货 ✧</h3>
             <div id="modalProductInfo" style="background:#eef2ff; padding:8px; border-radius:20px; text-align:center; margin-bottom:20px;">商品名 · 价格</div>
 
-           <form id="orderForm" action="https://formsubmit.co/1216060397@qq.com" method="POST">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_subject" value="新订单通知 - 志愿者小店">
-    <input type="hidden" name="_template" value="box">
+            <form id="orderForm" action="https://formsubmit.co/1216060397@qq.com" method="POST">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_subject" value="新订单通知 - 志愿者小店">
+                <input type="hidden" name="_template" value="box">
 
-    <input type="hidden" name="product_name" id="selectedProduct" value="">
-    <input type="hidden" name="product_price" id="selectedPrice" value="">
+                <input type="hidden" name="product_name" id="selectedProduct" value="">
+                <input type="hidden" name="product_price" id="selectedPrice" value="">
 
-    <div class="form-group">
-        <label>📦 收货地址</label>
-        <input type="text" name="address" id="address" placeholder="省市区 + 详细地址" required>
-    </div>
-    <div class="form-group">
-        <label>📞 联系电话</label>
-        <input type="text" name="phone" id="phone" placeholder="手机号码" required>
-    </div>
-    <div class="form-group">
-        <label>👤 买家昵称</label>
-        <input type="text" name="nickname" id="nickname" placeholder="你的昵称" required>
-    </div>
-    <div class="form-group">
-        <label>💬 买家微信</label>
-        <input type="text" name="wechat" id="wechat" placeholder="用于联系发货" required>
-    </div>
+                <div class="form-group">
+                    <label>📦 收货地址</label>
+                    <input type="text" name="address" id="address" placeholder="省市区 + 详细地址" required>
+                </div>
+                <div class="form-group">
+                    <label>📞 联系电话</label>
+                    <input type="text" name="phone" id="phone" placeholder="手机号码" required>
+                </div>
+                <div class="form-group">
+                    <label>👤 买家昵称</label>
+                    <input type="text" name="nickname" id="nickname" placeholder="你的昵称" required>
+                </div>
+                <div class="form-group">
+                    <label>💬 买家微信</label>
+                    <input type="text" name="wechat" id="wechat" placeholder="用于联系发货" required>
+                </div>
 
-    <hr style="margin:20px 0; border:0; border-top:1px solid #eee;">
-    <div style="font-weight:600; margin-bottom:10px;">💳 付款方式（二选一）</div>
+                <!-- 新增：购买数量 -->
+                <div class="form-group">
+                    <label>🔢 购买数量</label>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" class="quantity-input" required>
+                        <span style="font-size:14px; color:#666;">库存 <span id="stockDisplay">0</span> 件</span>
+                    </div>
+                </div>
 
-    <div style="background:#f5f5f5; padding:15px; border-radius:12px; margin-bottom:15px;">
-        <div style="font-size:13px; color:#666; margin-bottom:8px;">方式一：复制地址转账</div>
-        <div style="display:flex; gap:8px;">
-            <input type="text" id="geaAddress" value="gea1vle5h50hnvrynvxkypenw9a8v594tjqxq448dx" readonly style="flex:1; padding:10px; border:1px solid #ddd; border-radius:20px; background:white; font-family:monospace;">
-            <button type="button" onclick="copyAddress()" style="padding:10px 15px; background:#e02e24; color:white; border:none; border-radius:20px; cursor:pointer;">复制</button>
-        </div>
-    </div>
+                <hr style="margin:20px 0; border:0; border-top:1px solid #eee;">
+                <div style="font-weight:600; margin-bottom:10px;">💳 付款方式（二选一）</div>
 
-    <div style="text-align: center; margin: 15px 0 20px;">
-        <div style="font-size:13px; color:#666; margin-bottom:10px;">方式二：扫码支付</div>
-        <img src="qrcode.jpg" alt="GEA收款码" style="width:160px; height:160px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
-        <p style="font-size:12px; color:#666; margin-top:8px;">打开GEA钱包扫码付款</p>
-    </div>
+                <div style="background:#f5f5f5; padding:15px; border-radius:12px; margin-bottom:15px;">
+                    <div style="font-size:13px; color:#666; margin-bottom:8px;">方式一：复制地址转账</div>
+                    <div style="display:flex; gap:8px;">
+                        <input type="text" id="geaAddress" value="gea1vle5h50hnvrynvxkypenw9a8v594tjqxq448dx" readonly style="flex:1; padding:10px; border:1px solid #ddd; border-radius:20px; background:white; font-family:monospace;">
+                        <button type="button" onclick="copyAddress()" style="padding:10px 15px; background:#e02e24; color:white; border:none; border-radius:20px; cursor:pointer;">复制</button>
+                    </div>
+                </div>
 
-    <button type="submit" class="submit-btn">✅ 提交订单（付款后）</button>
-    <button type="button" class="close-btn" id="closeModalBtn">取消</button> 
+                <div style="text-align: center; margin: 15px 0 20px;">
+                    <div style="font-size:13px; color:#666; margin-bottom:10px;">方式二：扫码支付</div>
+                    <img src="qrcode.jpg" alt="GEA收款码" style="width:160px; height:160px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+                    <p style="font-size:12px; color:#666; margin-top:8px;">打开GEA钱包扫码付款</p>
+                </div>
+
+                <button type="submit" class="submit-btn">✅ 提交订单（付款后）</button>
+                <button type="button" class="close-btn" id="closeModalBtn">取消</button>
             </form>
 
             <div style="font-size:12px; color:#999; text-align:center; margin-top:15px;">
@@ -344,7 +370,10 @@
         const phoneInput = document.getElementById('phone');
         const nicknameInput = document.getElementById('nickname');
         const wechatInput = document.getElementById('wechat');
+        const quantityInput = document.getElementById('quantity');
+        const stockDisplay = document.getElementById('stockDisplay');
         const buyBtns = document.querySelectorAll('.buy-btn');
+        const orderForm = document.getElementById('orderForm');
 
         function openModal() {
             modal.style.display = 'flex';
@@ -361,9 +390,16 @@
                 const card = this.closest('.product-card');
                 const product = card.dataset.product || '商品';
                 const price = card.dataset.price || '0';
+                const stock = card.dataset.stock || '0';
                 modalProductInfo.innerText = `${product} · ${price}`;
                 selectedProduct.value = product;
                 selectedPrice.value = price;
+
+                // 设置数量输入框的最大值和默认值
+                quantityInput.max = stock;
+                quantityInput.value = 1;
+                stockDisplay.innerText = stock;
+
                 addressInput.value = '';
                 phoneInput.value = '';
                 nicknameInput.value = '';
@@ -384,6 +420,28 @@
             document.execCommand('copy');
             alert('GEA地址已复制到剪贴板');
         }
+
+        // 表单提交前验证数量
+        orderForm.addEventListener('submit', function(e) {
+            const address = addressInput.value.trim();
+            const phone = phoneInput.value.trim();
+            const nickname = nicknameInput.value.trim();
+            const wechat = wechatInput.value.trim();
+            const quantity = quantityInput.value;
+            const stock = stockDisplay.innerText;
+
+            if (!address || !phone || !nickname || !wechat) {
+                alert('请填写完整的收货信息');
+                e.preventDefault();
+                return;
+            }
+            if (quantity < 1 || quantity > parseInt(stock)) {
+                alert(`购买数量不能超过库存 ${stock} 件`);
+                e.preventDefault();
+                return;
+            }
+            // 验证通过，表单正常提交
+        });
     </script>
 </body>
 </html>
